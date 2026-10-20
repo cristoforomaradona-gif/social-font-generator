@@ -262,7 +262,7 @@
         <!-- Input Utente -->
         <div class="card">
             <label for="textInput">Digita qui il tuo testo:</label>
-            <textarea id="textInput" placeholder="Scrivi qualcosa... (es. Il mio profilo top 🚀)">Il mio profilo fantastico 🚀</textarea>
+            <textarea id="textInput" placeholder="Scrivi qualcosa...">Il mio profilo fantastico 🚀</textarea>
         </div>
 
         <!-- Box Condivisione WhatsApp -->
@@ -280,15 +280,13 @@
         <!-- Risultati Font -->
         <div class="card">
             <label style="margin-bottom: 16px;">Scegli il font e clicca su "Copia":</label>
-            <div class="results-grid" id="resultsContainer">
-                <!-- Generati via JavaScript -->
-            </div>
+            <div class="results-grid" id="resultsContainer"></div>
         </div>
 
         <!-- Sezione descrittiva SEO -->
         <div class="seo-content">
             <h2>Come usare i caratteri speciali sui social?</h2>
-            <p>I caratteri che generi qui sopra utilizzano speciali codifiche Unicode supportate da Instagram, Facebook, TikTok e WhatsApp. Ti basta scrivere la tua frase, trovare lo stile che preferisci (come il corsivo elegante, il grassetto o le lettere cerchiate) e cliccare sul tasto <strong>Copia</strong>.</p>
+            <p>I caratteri che generi qui sopra utilizzano speciali codifiche Unicode supportate da Instagram, Facebook, TikTok e WhatsApp. Ti basta scrivere la tua frase, trovare lo stile che preferisci e cliccare sul tasto <strong>Copia</strong>.</p>
             <p>Incolla poi il testo direttamente nella tua biografia o nei tuoi messaggi per dare un tocco unico al tuo profilo!</p>
         </div>
     </div>
@@ -311,91 +309,64 @@
             }
         });
 
-        // Mappe Unicode corrette, stabili e ad alta compatibilità
-        const fontMaps = {
-            boldSans: {
-                upper: '𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭',
-                lower: '𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇',
-                digits: '𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟩𝟪𝟫'
+        // Mappe traslitterate ad altissima compatibilità (Basic Multilingual Plane)
+        const alphaUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const alphaLower = 'abcdefghijklmnopqrstuvwxyz';
+
+        const styleTransformers = {
+            vaporwave: text => text.split('').join(' '),
+            reverse: text => text.split('').reverse().join(''),
+            brackets: text => text.split('').map(c => /[a-zA-Z0-9]/.test(c) ? `[${c}]` : c).join(''),
+            parentheses: text => text.split('').map(c => /[a-zA-Z0-9]/.test(c) ? `(${c})` : c).join(''),
+            slash: text => text.split('').map(c => /[a-zA-Z0-9]/.test(c) ? `${c}/` : c).join(''),
+            decorated1: text => `★彡 ${text} 彡★`,
+            decorated2: text => `•?【 ${text} 】?•`,
+            decorated3: text => `◤ ${text} ◢`,
+            decorated4: text => `░▒▓█ ${text} █▓▒░`,
+            circled: text => {
+                const normUpper = 'ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ';
+                const normLower = 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ';
+                return text.split('').map(char => {
+                    let uIdx = alphaUpper.indexOf(char);
+                    if (uIdx !== -1) return Array.from(normUpper)[uIdx];
+                    let lIdx = alphaLower.indexOf(char);
+                    if (lIdx !== -1) return Array.from(normLower)[lIdx];
+                    return char;
+                }).join('');
             },
-            boldSerif: {
-                upper: '𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙',
-                lower: '𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳',
-                digits: '𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗'
-            },
-            doubleStruck: {
-                upper: '𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ',
-                lower: '𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫',
-                digits: '𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡'
-            },
-            monospace: {
-                upper: '𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝙰𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚀',
-                lower: '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣',
-                digits: '𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿'
-            },
-            circle: {
-                upper: 'ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ',
-                lower: 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ',
-                digits: '⓪①②③④⑤⑥⑦⑧⑨'
-            },
-            fullWidth: {
-                upper: 'ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ',
-                lower: 'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ',
-                digits: '０１２３４５６７８９'
+            smallCaps: text => {
+                const map = {
+                    'a': 'ᴀ', 'b': 'ʙ', 'c': 'ᴄ', 'd': 'ᴅ', 'e': 'ᴇ', 'f': 'ғ', 'g': 'ɢ', 'h': 'ʜ',
+                    'i': 'ɪ', 'j': 'ᴊ', 'k': 'ᴋ', 'l': 'ʟ', 'm': 'ᴍ', 'n': 'ɴ', 'o': 'ᴏ', 'p': 'ᴘ',
+                    'q': 'ǫ', 'r': 'ʀ', 's': 's', 't': 'ᴛ', 'u': 'ᴜ', 'v': 'ᴠ', 'w': 'ᴡ', 'x': 'x',
+                    'y': 'ʏ', 'z': 'ᴢ'
+                };
+                return text.toLowerCase().split('').map(c => map[c] || c).join('');
             }
         };
-
-        const standardAlpha = {
-            upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            lower: 'abcdefghijklmnopqrstuvwxyz',
-            digits: '0123456789'
-        };
-
-        function transformText(text, styleKey) {
-            if (styleKey === 'reverse') {
-                return text.split('').reverse().join('');
-            }
-            if (styleKey === 'vaporwave') {
-                return text.split('').map(c => c + ' ').join('');
-            }
-
-            const map = fontMaps[styleKey];
-            if (!map) return text;
-
-            return text.split('').map(char => {
-                const uIndex = standardAlpha.upper.indexOf(char);
-                if (uIndex !== -1 && map.upper[uIndex]) return map.upper[uIndex];
-
-                const lIndex = standardAlpha.lower.indexOf(char);
-                if (lIndex !== -1 && map.lower[lIndex]) return map.lower[lIndex];
-
-                const dIndex = standardAlpha.digits.indexOf(char);
-                if (dIndex !== -1 && map.digits[dIndex]) return map.digits[dIndex];
-
-                return char;
-            }).join('');
-        }
 
         const stylesConfig = [
-            { key: 'boldSans', name: 'Grassetto Sans' },
-            { key: 'boldSerif', name: 'Grassetto Serif' },
-            { key: 'doubleStruck', name: 'Bordo Doppio (Outline)' },
-            { key: 'monospace', name: 'Macchina da Scrivere (Monospace)' },
-            { key: 'circle', name: 'Lettere Cerchiate' },
-            { key: 'fullWidth', name: 'Caratteri Larghi (Wide)' },
-            { key: 'reverse', name: 'Testo al Contrario' },
-            { key: 'vaporwave', name: 'Spaziato (Vaporwave)' }
+            { key: 'smallCaps', name: 'Maiuscoletto (Small Caps)' },
+            { key: 'circled', name: 'Lettere Cerchiate' },
+            { key: 'decorated1', name: 'Decorato con Stelle (★彡)' },
+            { key: 'decorated2', name: 'Decorato Simboli (•?【 】?•)' },
+            { key: 'decorated3', name: 'Cornice Geometrica (◤ ◢)' },
+            { key: 'decorated4', name: 'Stile Pixel / Gaming (░▒▓█)' },
+            { key: 'brackets', name: 'Tra Parentesi Quadre [ ]' },
+            { key: 'vaporwave', name: 'Spaziato (Vaporwave)' },
+            { key: 'reverse', name: 'Testo al Contrario' }
         ];
 
         const textInput = document.getElementById('textInput');
         const resultsContainer = document.getElementById('resultsContainer');
 
         function renderResults() {
-            const val = textInput.value;
+            const val = textInput.value || '';
             resultsContainer.innerHTML = '';
 
             stylesConfig.forEach(style => {
-                const converted = transformText(val, style.key);
+                const transformer = styleTransformers[style.key];
+                const converted = transformer ? transformer(val) : val;
 
                 const box = document.createElement('div');
                 box.className = 'font-box';
@@ -405,8 +376,11 @@
                         <div class="font-label">${style.name}</div>
                         <div class="font-content">${converted || '...'}</div>
                     </div>
-                    <button class="copy-btn" onclick="copyText(this, \`${converted.replace(/`/g, '\\`')}\`)">Copia</button>
+                    <button class="copy-btn">Copia</button>
                 `;
+
+                const copyBtn = box.querySelector('.copy-btn');
+                copyBtn.addEventListener('click', () => copyText(copyBtn, converted));
 
                 resultsContainer.appendChild(box);
             });
