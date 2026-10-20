@@ -31,7 +31,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -120,7 +120,6 @@
             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
 
-        /* Sezione Condivisione WhatsApp */
         .share-section {
             background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
             color: white;
@@ -207,7 +206,6 @@
             background-color: #10b981;
         }
 
-        /* Sezione Testuale SEO (fondamentale per Google AdSense) */
         .seo-content {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -274,7 +272,7 @@
                class="whatsapp-btn" target="_blank">Condividi 📲</a>
         </div>
 
-        <!-- Spazio per Banner Pubblicitario (Google AdSense) -->
+        <!-- Spazio per Banner Pubblicitario -->
         <div class="ad-banner">
             [ Spazio Pubblicitario / Google AdSense Banner ]
         </div>
@@ -287,7 +285,7 @@
             </div>
         </div>
 
-        <!-- Sezione descrittiva utile per Google AdSense -->
+        <!-- Sezione descrittiva SEO -->
         <div class="seo-content">
             <h2>Come usare i caratteri speciali sui social?</h2>
             <p>I caratteri che generi qui sopra utilizzano speciali codifiche Unicode supportate da Instagram, Facebook, TikTok e WhatsApp. Ti basta scrivere la tua frase, trovare lo stile che preferisci (come il corsivo elegante, il grassetto o le lettere cerchiate) e cliccare sul tasto <strong>Copia</strong>.</p>
@@ -313,43 +311,39 @@
             }
         });
 
+        // Mappe Unicode corrette, stabili e ad alta compatibilità
         const fontMaps = {
             boldSans: {
                 upper: '𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭',
                 lower: '𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇',
                 digits: '𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟩𝟪𝟫'
             },
-            italicSans: {
-                upper: '𝘈𝘉𝘊𝘋𝘌𝘍𝘏𝘐𝘒𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡',
-                lower: '𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭mnemonic_placeholder_abcdefghijklmnopqrstuvwxyz', // Fallback sicuro
-                digits: '0123456789'
-            },
             boldSerif: {
                 upper: '𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙',
                 lower: '𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳',
                 digits: '𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗'
             },
-            script: {
-                upper: '𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵',
-                lower: '𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏',
-                digits: '0123456789'
+            doubleStruck: {
+                upper: '𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ',
+                lower: '𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫',
+                digits: '𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡'
             },
-            fraktur: {
-                upper: '𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ',
-                lower: '𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷',
-                digits: '0123456789'
+            monospace: {
+                upper: '𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝙰𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚀',
+                lower: '𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣',
+                digits: '𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿'
             },
             circle: {
                 upper: 'ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ',
                 lower: 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ',
                 digits: '⓪①②③④⑤⑥⑦⑧⑨'
             },
-            reverse: { upper: '', lower: '', digits: '' },
-            vaporwave: { upper: '', lower: '', digits: '' }
+            fullWidth: {
+                upper: 'ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ',
+                lower: 'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ',
+                digits: '０１２３４５６７８９'
+            }
         };
-
-        // Correzione array minuscole italicSans pulito
-        fontMaps.italicSans.lower = '𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻';
 
         const standardAlpha = {
             upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -384,11 +378,11 @@
 
         const stylesConfig = [
             { key: 'boldSans', name: 'Grassetto Sans' },
-            { key: 'italicSans', name: 'Corsivo Sans' },
             { key: 'boldSerif', name: 'Grassetto Serif' },
-            { key: 'script', name: 'Corsivo Elegante (Script)' },
-            { key: 'fraktur', name: 'Gotico / Medievale' },
+            { key: 'doubleStruck', name: 'Bordo Doppio (Outline)' },
+            { key: 'monospace', name: 'Macchina da Scrivere (Monospace)' },
             { key: 'circle', name: 'Lettere Cerchiate' },
+            { key: 'fullWidth', name: 'Caratteri Larghi (Wide)' },
             { key: 'reverse', name: 'Testo al Contrario' },
             { key: 'vaporwave', name: 'Spaziato (Vaporwave)' }
         ];
